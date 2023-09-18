@@ -17,9 +17,9 @@ before_install:
   - chmod +x gradlew
 
 before_deploy:
-  - zip -r practice-build *
+  - zip -r prac-built *
   - mkdir -p deploy
-  - mv practice-build.zip deploy/practice-build.zip
+  - mv prac-built.zip deploy/prac-built.zip
 
 deploy:
   - provider: s3
@@ -36,7 +36,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_ACCESS_SECRET
     bucket: practice-build
-    key: practice-build.zip
+    key: prac-built.zip
     bundle_type: zip
     application: practiceservice
     deployment_group: practiceservice-group
