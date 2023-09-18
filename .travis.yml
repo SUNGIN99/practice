@@ -26,14 +26,21 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_ACCESS_SECRET
     bucket: practice-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_ACCESS_SECRET
+    bucket: practice-build
     key: practice-build.zip
     bundle_type: zip
     application: practiceservice
     deployment_group: practiceservice-group
     region: ap-northeast-2
-    skip_cleanup: true
-    acl: private
-    local_dir: deploy
     wait-until-deployed: true
 
 notifications:
