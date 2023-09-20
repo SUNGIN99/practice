@@ -18,16 +18,9 @@ jobs:
         - chmod +x gradlew
       script:
         - ./gradlew clean build
-
-      after_script:
-        sudo: required
-        language: generic
-        services:
-          - docker
-        script:
-            - docker build -t $SPRING_REPO -f ./Dockerfile .
-            - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-            - docker push $SPRING_REPO
+        - docker build -t $SPRING_REPO -f ./Dockerfile .
+        - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+        - docker push $SPRING_REPO
 
     - stage: Build Nginx Docker image
       sudo: required
