@@ -7,9 +7,5 @@ server:
       enabled: true
       force: true
 
-spring:
-  mustache:
-    prefix: classpath:/app/templates/
-    suffix: .mustache
 
 
