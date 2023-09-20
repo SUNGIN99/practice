@@ -42,7 +42,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	// mustache
-	compileOnly 'org.springframework.boot:spring-boot-starter-mustache'
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 }
 
 tasks.named('test') {

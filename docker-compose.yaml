@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: adultkim/jpa-nginx
+    image: adultkim/jpa-nginx:latest
     container_name: nginx
     restart: always
     ports:
@@ -9,7 +9,7 @@ services:
 
   spring:
     build: .
-    image: adultkim/jpapractice
+    image: adultkim/jpapractice:latest
     container_name: server
     expose:
       - 8081
