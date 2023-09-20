@@ -36,7 +36,7 @@ jobs:
       language: generic
 
       before_deploy:
-        - zip -r prac-built ./docker-compose.yaml
+        - zip -r prac-built ./docker-compose.yaml ./appspec.yml
         - mkdir -p deploy
         - mv prac-built.zip deploy/prac-built.zip
       deploy:
