@@ -23,11 +23,11 @@ jobs:
       services:
         - docker
       script:
-        - docker build -t $SPRING-REPO -f ./Dockerfile .
-        - docker build -t $NGINX-REPO -f ./Dockerfile-nginx .
+        - docker build -t $SPRING_REPO -f ./Dockerfile .
+        - docker build -t $NGINX_REPO -f ./Dockerfile-nginx .
         - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        - docker push $SPRING-REPO
-        - docker push $NGINX-REPO
+        - docker push $SPRING_REPO
+        - docker push $NGINX_REPO
 
     - stage: Deploy to EC2
       deploy:
