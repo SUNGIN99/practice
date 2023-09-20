@@ -16,5 +16,5 @@ services:
     ports:
       - "8081:8081"
     environment:
-      active: server
+      active: prod
 
