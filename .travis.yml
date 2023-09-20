@@ -25,7 +25,7 @@ jobs:
       script:
         - docker build -t $SPRING_REPO -f ./Dockerfile .
         - docker build -t $NGINX_REPO -f ./Dockerfile-nginx .
-        - docker login -u $DOCKER_USER -p $DOCKER_PASS
+        - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
         - docker push $SPRING_REPO
         - docker push $NGINX_REPO
 
