@@ -12,15 +12,5 @@ public class IndexController {
         return new ModelAndView("index");
     }
 
-    @GetMapping("/hello")
-    public String index2(){
-        return "index";
-    }
-
-
-    @GetMapping("/a")
-    public String index3(){
-        return "test";
-    }
 
 }
