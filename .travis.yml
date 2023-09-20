@@ -1,6 +1,9 @@
-language: java
-jdk:
-  - openjdk11
+sudo: required
+
+language: generic
+
+services:
+  - docker
 
 branches:
   only:
@@ -11,37 +14,50 @@ cache:
     - '$HOME/ .m2/repository'
     - '$HOME/ .gradle'
 
-script: "./gradlew clean build"
+jobs:
+  include:
+    - stage: SpringBoot gradle build
+      before_install:
+        - chmod +x gradlew
+      script:
+        - ./gradlew clean build
+      before_deploy:
+        - zip -r prac-built ./docker-compose.yml
+        - mkdir -p deploy
+        - mv prac-built.zip deploy/prac-built.zip
 
-before_install:
-  - chmod +x gradlew
+    - stage: Build Docker image
+      script:
+        - docker build -t adultkim/jpapractice -f ./Dockerfile
+        - docker build -t adultkim/jpa-nginx -f ./Dockerfile-nginx
+        - docker login -u $DOCKER_USER -p $DOCKER_PASS
+        - docker push adultkim/jpapractice
+        - docker push adultkim/jpa-nginx
 
-before_deploy:
-  - zip -r prac-built *
-  - mkdir -p deploy
-  - mv prac-built.zip deploy/prac-built.zip
+    - stage: Deploy to EC2
+      deploy:
+        deploy:
+          - provider: s3
+            access_key_id: $AWS_ACCESS_KEY
+            secret_access_key: $AWS_ACCESS_SECRET
+            bucket: practice-build
+            region: ap-northeast-2
+            skip_cleanup: true
+            acl: private
+            local_dir: deploy
+            wait-until-deployed: true
 
-deploy:
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_ACCESS_SECRET
-    bucket: practice-build
-    region: ap-northeast-2
-    skip_cleanup: true
-    acl: private
-    local_dir: deploy
-    wait-until-deployed: true
+          - provider: codedeploy
+            access_key_id: $AWS_ACCESS_KEY
+            secret_access_key: $AWS_ACCESS_SECRET
+            bucket: practice-build
+            key: SpringBoot.zip
+            bundle_type: zip
+            application: practiceservice
+            deployment_group: practiceservice-group
+            region: ap-northeast-2
+            wait-until-deployed: true
 
-  - provider: codedeploy
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_ACCESS_SECRET
-    bucket: practice-build
-    key: prac-built.zip
-    bundle_type: zip
-    application: practiceservice
-    deployment_group: practiceservice-group
-    region: ap-northeast-2
-    wait-until-deployed: true
 
 notifications:
   email:

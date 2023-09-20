@@ -1,2 +1,20 @@
 version: "3"
-services:  #
+services:
+  web:
+    image: adultkim/jpa-nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+
+  spring:
+    build: .
+    image: adultkim/jpapractice
+    container_name: server
+    expose:
+      - 8081
+    ports:
+      - "8081:8081"
+    environment:
+      active: server
+
