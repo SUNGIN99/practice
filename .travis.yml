@@ -68,7 +68,3 @@ jobs:
 
 
 
-notifications:
-  email:
-    recipients:
-      - 99_insung@naver.com
