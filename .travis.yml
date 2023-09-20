@@ -54,7 +54,7 @@ jobs:
           access_key_id: $AWS_ACCESS_KEY
           secret_access_key: $AWS_ACCESS_SECRET
           bucket: practice-build
-          key: SpringBoot.zip
+          key: prac-built.zip
           bundle_type: zip
           application: practiceservice
           deployment_group: practiceservice-group
