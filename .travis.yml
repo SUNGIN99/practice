@@ -1,6 +1,12 @@
+before_deploy:
+  - zip -r prac-built ./docker-compose.yml
+  - mkdir -p deploy
+  - mv prac-built.zip deploy/prac-built.zip
+
+
 jobs:
   include:
-    - stage: SpringBoot gradle build
+    - stage: SpringBoot gradle build & Build Gradle Docker Image
       language: java
       jdk:
         - openjdk11
@@ -12,21 +18,25 @@ jobs:
         - chmod +x gradlew
       script:
         - ./gradlew clean build
-      before_deploy:
-        - zip -r prac-built ./docker-compose.yml
-        - mkdir -p deploy
-        - mv prac-built.zip deploy/prac-built.zip
 
-    - stage: Build Docker image
+      after_script:
+        sudo: required
+        language: generic
+        services:
+          - docker
+        script:
+            - docker build -t $SPRING_REPO -f ./Dockerfile .
+            - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            - docker push $SPRING_REPO
+
+    - stage: Build Nginx Docker image
       sudo: required
       language: generic
       services:
         - docker
       script:
-        - docker build -t $SPRING_REPO -f ./Dockerfile .
         - docker build -t $NGINX_REPO -f ./Dockerfile-nginx .
         - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-        - docker push $SPRING_REPO
         - docker push $NGINX_REPO
 
     - stage: Deploy to EC2
