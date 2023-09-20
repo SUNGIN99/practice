@@ -33,9 +33,7 @@ jobs:
         - docker push $NGINX_REPO
 
     - stage: Deploy Stage
-      language: java
-      jdk:
-        - openjdk11
+      language: generic
 
       before_deploy:
         - zip -r prac-built ./docker-compose.yml
