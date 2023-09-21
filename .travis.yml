@@ -34,16 +34,14 @@ jobs:
 
     - stage: Deploy Stage
       language: generic
-
       before_deploy:
-        - mkdir ready-deploy
+        - mkdir -p ready-deploy
         - cp ./docker-compose.yaml ready-deploy
         - cp ./appspec.yml ready-deploy
         - cp ./scripts/docker-hub.sh ready-deploy
         - cd ready-deploy && zip -r prac-built *
         - cd ../ && mkdir -p deploy
         - mv ready-deploy/prac-built.zip deploy/prac-built.zip
-
       deploy:
         - provider: s3
           access_key_id: $AWS_ACCESS_KEY
@@ -65,7 +63,6 @@ jobs:
           deployment_group: practiceservice-group
           region: ap-northeast-2
           wait-until-deployed: true
-
       after_success:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
