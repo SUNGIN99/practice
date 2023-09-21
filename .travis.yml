@@ -36,10 +36,14 @@ jobs:
       language: generic
 
       before_deploy:
-        - zip -r prac-built ./docker-compose.yaml ./appspec.yml ./scripts/docker-hub.sh
-        - mkdir -p deploy
-        - mv prac-built.zip deploy/prac-built.zip
-      after_success:
+        - mkdir before-deploy
+        - cp ./docker-compose.yaml before-deploy
+        - cp ./appspec.yml before-deploy
+        - cp ./scripts/docker-hub.sh before-deploy
+        - cd before-deploy && zip -r prac-built *
+        - cd ../ && mkdir -p deploy
+        - mv before-deploy/prac-built.zip deploy/prac-built.zip
+      after_deploy:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
         - ./send.sh success $WEBHOOK_URL

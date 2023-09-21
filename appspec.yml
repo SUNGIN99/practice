@@ -7,6 +7,6 @@ files:
 
 hooks:
   AfterInstall:
-    - location: /home/ubuntu/app/docker/zip/docker-hub.sh
+    - location: docker-hub.sh
       timeout: 300
       runas: root
