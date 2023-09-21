@@ -4,3 +4,9 @@ files:
   - source:  /
     destination: /home/ubuntu/app/docker/zip
     overwrite: yes
+
+hooks:
+  AfterInstall:
+    - location: /home/ubuntu/app/docker/zip/docker-hub.sh
+      timeout: 300
+      runas: root
