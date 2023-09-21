@@ -43,10 +43,6 @@ jobs:
         - cd ready-deploy && zip -r prac-built *
         - cd ../ && mkdir -p deploy
         - mv ready-deploy/prac-built.zip deploy/prac-built.zip
-      after_success:
-        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-        - chmod +x send.sh
-        - ./send.sh success $WEBHOOK_URL
 
       deploy:
         - provider: s3
@@ -70,6 +66,9 @@ jobs:
           region: ap-northeast-2
           wait-until-deployed: true
 
-
+      after_success:
+        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+        - chmod +x send.sh
+        - ./send.sh success $WEBHOOK_URL
 
 
