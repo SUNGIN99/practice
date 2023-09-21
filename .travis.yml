@@ -43,10 +43,11 @@ jobs:
         - cd ready-deploy && zip -r prac-built *
         - cd ../ && mkdir -p deploy
         - mv ready-deploy/prac-built.zip deploy/prac-built.zip
-      after_deploy:
+      after_success:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
         - ./send.sh success $WEBHOOK_URL
+        -
       deploy:
         - provider: s3
           access_key_id: $AWS_ACCESS_KEY
