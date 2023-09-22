@@ -16,10 +16,7 @@ jobs:
       #  directories:
       #    - '$HOME/ .m2/repository'
       #    - '$HOME/ .gradle'
-      before_install:
-        - chmod +x gradlew
       script:
-        - ./gradlew clean build
         - docker build -t $SPRING_REPO -f ./Dockerfile .
         - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
         - docker push $SPRING_REPO
