@@ -8,16 +8,13 @@ services:
 jobs:
   include:
     - stage: SpringBoot gradle build & Build Gradle Docker Image
-      language: java
-      jdk:
-        - openjdk11
+      language: generic
 
       #cache:
       #  directories:
       #    - '$HOME/ .m2/repository'
       #    - '$HOME/ .gradle'
-      before_install:
-        - chmod +x gradlew
+
       script:
         - docker build -t $SPRING_REPO -f ./Dockerfile .
         - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
