@@ -8,7 +8,7 @@ services:
 jobs:
   include:
     - stage: SpringBoot gradle build & Build Gradle Docker Image
-      language: generic
+      #language: generic
 
       #cache:
       #  directories:
