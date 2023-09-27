@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.Entity;
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -13,4 +15,5 @@ public class TestController {
     ResponseEntity<String> getHello(){
         return ResponseEntity.ok("hello");
     }
+
 }
