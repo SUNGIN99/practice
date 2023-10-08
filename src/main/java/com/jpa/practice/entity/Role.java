@@ -1,4 +1,4 @@
-package com.jpa.practice.domain.post.domain.user;
+package com.jpa.practice.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum Role {
 
     GUEST("ROLE_GUEST", "손님"),
+    SELLER("ROLE_SELLER", "판매자"),
     USER("ROLE_USER", "일반 사용자");
 
     private final String key;

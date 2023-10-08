@@ -1,4 +1,4 @@
-package com.jpa.practice.domain.post.domain.service;
+package com.jpa.practice.service;
 
 import org.springframework.stereotype.Service;
 

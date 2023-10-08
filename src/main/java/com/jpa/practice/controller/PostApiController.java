@@ -1,6 +1,6 @@
-package com.jpa.practice.domain.post;
+package com.jpa.practice.controller;
 
-import com.jpa.practice.domain.post.domain.service.PostsService;
+import com.jpa.practice.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
