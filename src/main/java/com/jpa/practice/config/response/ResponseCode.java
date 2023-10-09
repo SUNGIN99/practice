@@ -24,8 +24,8 @@ public enum ResponseCode {
 
     // 500
     INTERNAL_SERVER_ERROR(500, "SERVER-ERROR-00", "서버 에러"),
-
-
+    KAKAO_TOKEN_FAILED(501, "SERVER-OAUTH-KAKAO01", "카카오 토큰 인증실패"),
+    KAKAO_USERINFO_FAILED(501, "SERVER-OAUTH-KAKAO02", "카카오 유저 정보 조회실패")
     ;
 
     private final int status;
