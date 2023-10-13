@@ -1,4 +1,4 @@
-package com.jpa.practice;
+package com.jpa.practice.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

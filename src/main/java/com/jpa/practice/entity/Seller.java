@@ -1,6 +1,5 @@
 package com.jpa.practice.entity;
 
-import com.jpa.practice.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
